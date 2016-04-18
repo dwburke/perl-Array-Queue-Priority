@@ -1,29 +1,39 @@
-package Array::Priority;
+package Array::Queue::Priority;
 
 use Moose;
-use List::Util qw(sum0);
+
+extends 'Array::Queue';
 
 use namespace::autoclean;
 
 
-sub first {
-	my ($self) = @_;
-	$self->get(0);
-}
+=head1 NAME
+
+Array::Queue::Priority - An custom sorted queue
+
+=head1 SYNOPSIS
+
+    my $queue = Array::Queue::Priority->new( limit => 12 );
+    $ar->add( 20 );
+    $ar->add( 18 );
+    $ar->add( 22 );
+
+=cut
 
 
 sub push {
     my ($self, $node) = @_;
 
     if ($self->size == 0) {
-        $self->_add( $node );
+        $self->_insert(0, $node);
     }
     else {
         my $sort_cb = $self->sort_cb;
 
         my $found = 0;
 
-        for (my $idx = 0; $idx < $self->size; $idx++) {
+        my $idx;
+        for ($idx = 0; $idx < $self->size; $idx++) {
 
             my $sort_it = $sort_cb->($node, $self->get($idx));
 
@@ -36,7 +46,7 @@ sub push {
         }
 
         unless ($found) {
-            $self->_add($node);
+            $self->_insert($idx, $node);
         }
 
     }
@@ -50,24 +60,6 @@ has sort_cb => (
 	isa => 'CodeRef',
 	default => sub { sub { $_[0] <=> $_[1] } },
 	);
-
-
-has queue => (
-    is => 'rw',
-    isa => 'ArrayRef[Item]', 
-    traits => [ 'Array' ],
-    default => sub { [ ] },
-    handles => {
-        _add => 'push',
-        pop => 'shift',
-        _insert => 'insert',
-        _remove => 'shift',
-        size => 'count',
-        get => 'get',
-	empty => 'is_empty',
-    },
-    );
-
 
 
 __PACKAGE__->meta->make_immutable;

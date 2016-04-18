@@ -3,15 +3,15 @@ use Test::Spec; # automatically turns on strict and warnings
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use Array::Priority;
+use Array::Queue::Priority;
 
-describe "Array::Priority" => sub {
+describe "Array::Queue::Priority" => sub {
 
     describe "adds an element" => sub {
         my $ar;
 
         before each => sub {
-            $ar = Array::Priority->new;
+            $ar = Array::Queue::Priority->new;
             $ar->push( 5 );
         };
 
@@ -29,7 +29,7 @@ describe "Array::Priority" => sub {
         my $ar;
 
         before each => sub {
-            $ar = Array::Priority->new;
+            $ar = Array::Queue::Priority->new;
             $ar->push( 9 );
             $ar->push( 6 );
             $ar->push( 3 );
@@ -77,7 +77,7 @@ describe "Array::Priority" => sub {
         my $ar;
 
         before each => sub {
-            $ar = Array::Priority->new(
+            $ar = Array::Queue::Priority->new(
                 sort_cb => sub {
                     $_[0]->{num} <=> $_[1]->{num}
                 });
@@ -140,7 +140,7 @@ describe "Array::Priority" => sub {
         my $ar;
 
         before each => sub {
-            $ar = Array::Priority->new(
+            $ar = Array::Queue::Priority->new(
                 sort_cb => sub {
                     $_[0]->{l_name} cmp $_[1]->{l_name}
                 });
