@@ -12,7 +12,7 @@ describe "Array::Queue" => sub {
 
         before each => sub {
             $ar = Array::Queue->new;
-            $ar->push( 5 );
+            $ar->add( 5 );
         };
 
         it "size is 1" => sub {
@@ -30,11 +30,11 @@ describe "Array::Queue" => sub {
 
         before each => sub {
             $ar = Array::Queue->new;
-            $ar->push( 9 );
-            $ar->push( 6 );
-            $ar->push( 3 );
-            $ar->push( 10 );
-            $ar->push( 7 );
+            $ar->add( 9 );
+            $ar->add( 6 );
+            $ar->add( 3 );
+            $ar->add( 10 );
+            $ar->add( 7 );
         };
 
         it "size is 5" => sub {
@@ -46,28 +46,28 @@ describe "Array::Queue" => sub {
         };
 
         it "second is 6" => sub {
-            $ar->pop;
+            $ar->remove;
             is( $ar->first, 6 );
         };
 
         it "third is 3" => sub {
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first, 3 );
         };
 
         it "fourth is 10" => sub {
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first, 10 );
         };
 
         it "fifth is 7" => sub {
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first, 7 );
         };
 
@@ -81,12 +81,12 @@ describe "Array::Queue" => sub {
                 sort_cb => sub {
                     $_[0]->{l_name} cmp $_[1]->{l_name}
                 });
-            $ar->push({ l_name => 'Hess' });
-            $ar->push({ l_name => 'Wilco' });
-            $ar->push({ l_name => 'Burke' });
-            $ar->push({ l_name => 'Robinson' });
-            $ar->push({ l_name => 'Wall' });
-            $ar->push({ l_name => 'Bates' });
+            $ar->add({ l_name => 'Hess' });
+            $ar->add({ l_name => 'Wilco' });
+            $ar->add({ l_name => 'Burke' });
+            $ar->add({ l_name => 'Robinson' });
+            $ar->add({ l_name => 'Wall' });
+            $ar->add({ l_name => 'Bates' });
         };
 
         it "size is 6" => sub {
@@ -98,38 +98,38 @@ describe "Array::Queue" => sub {
         };
 
         it "second is Burke" => sub {
-            $ar->pop;
+            $ar->remove;
             is( $ar->first->{l_name}, 'Wilco' );
         };
 
         it "third is Hess" => sub {
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first->{l_name}, 'Burke' );
         };
 
         it "fourth is Robinson" => sub {
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first->{l_name}, 'Robinson' );
         };
 
         it "fifth is Wall" => sub {
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first->{l_name}, 'Wall' );
         };
 
 
         it "sixth is Wilco" => sub {
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
-            $ar->pop;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
+            $ar->remove;
             is( $ar->first->{l_name}, 'Bates' );
         };
 
