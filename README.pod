@@ -2,95 +2,76 @@
 
 =head1 NAME
 
-Array::FIFO - A Simple limitable FIFO array, with sum and average methods
+Array::Queue - An custom sorted queue
 
 =head1 VERSION
 
-version 0.10
+version 0.1.0
 
 =head1 SYNOPSIS
 
-    my $ar = Array::FIFO->new( limit => 12 );
-    $ar->add( 20 );
-    $ar->add( 18 );
-    $ar->add( 22 );
+    my $queue = Array::Queue->new;
+    $ar->add({ id => 20 });
+    $ar->add({ id => 18 });
+    $ar->add({ id => 22 });
 
-    say $ar->average;
+    while ($node = $queue->first) {
+        # do things with node
+        $queue->remove;
+    }
 
 =head1 DESCRIPTION
 
-Array::FIFO is meant to be a simple limitable array, for storing data in a FIFO
-manner; with an optional limit to how large the array can get.  When the limit is
-reached, the oldest value is returned by C<add> when new values are added.
+Array::Queue is a fairly simple First-In / First-Out queue build with Moose.
 
-It's intent is for numeric values (i.e. current load of a system), but it should work 
-for other data types if you're not in need of the calculation methods.
+Any data structure can be added to the queue and retrieved in the order it was 
+added.  
 
-The C<sum> and C<average> methods return the current sum and average of the 
-data as you would expect.  It does this on once, then caches the result until
-the array changes.
+Originally part of Array::Queue::Priority until I decided to break them into two
+classes, the one dependant on the other.
 
 
 =head1 METHODS
-
-=head2 C<new>
-
-=over 4
-
-=item C<limit> (optional)
-
-Numeric value of how large the array is allowed to get.  When it reaches 
-limit, every item added causes the oldest item to be removed.
-
-If no value is passed, there is no max size.
-
-
-=back
 
 =head2 C<add>
 
     $ar->add( 99 );
 
-You can add any type of item to the array; if it's not a number it will be
-treated as a value of 0 when when calculating sum() and average().
-
-Returns the oldest element in the array.
+You can add any type of item to the queue.
 
 =head2 C<remove>
 
     $ar->remove;
 
-Remove the oldest item on the array.
+Remove the oldest item on the queue.  
+
+Returns value removed.
+
+=head2 C<first>
+
+    $ar->first;
+
+Returns the first / oldest item in the queue.
+
+Leaves the item in the queue.
 
 =head2 C<queue>
 
     $ar->queue;
 
-Reference directly the fifo array.
+Reference directly the array used to store the queued items.
 
 =head2 C<size>
 
     $ar->size;
 
-How many elements are in the array.
+How many elements are in the queue.
 
-=head2 C<limit>
+=head2 C<empty>
 
-    $ar->limit;
+    $ar->empty;
 
-The maximum size the array is allowed to be.
-
-=head2 C<sum>
-
-    $ar->sum;
-
-The sum of all numeric elements in the array.
-
-=head2 C<average>
-
-    $ar->average;
-
-The average of all numeric elements in the array.
+Boolean, is queue empty?
 
 =head1 AUTHOR
 
@@ -98,8 +79,10 @@ Dan Burke C<< dburke at addictmud.org >>
 
 =head1 BUGS
 
-If you encounter any bugs, or have feature requests, please create an issue 
-on github. https://github.com/dwburke/perl-Array-FIFO/issues
+If you encounter any bugs, or have feature requests, please create an issue
+on github. https://github.com/dwburke/perl-Array-Queue/issues
+
+Pull requests also welcome.
 
 =head1 LICENSE AND COPYRIGHT
 
