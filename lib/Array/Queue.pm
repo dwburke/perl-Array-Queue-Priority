@@ -7,7 +7,7 @@ use namespace::autoclean;
 
 =head1 NAME
 
-Array::Queue - An custom sorted queue
+Array::Queue - A simple fifo queue
 
 =head1 SYNOPSIS
 

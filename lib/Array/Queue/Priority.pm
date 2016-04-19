@@ -9,7 +9,7 @@ use namespace::autoclean;
 
 =head1 NAME
 
-Array::Queue::Priority - An custom sorted queue
+Array::Queue::Priority - A custom sorted queue
 
 =head1 SYNOPSIS
 
