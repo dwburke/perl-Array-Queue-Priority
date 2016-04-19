@@ -2,11 +2,11 @@
 
 =head1 NAME
 
-Array::Queue - An custom sorted queue
+Array::Queue - A simple fifo queue
 
 =head1 VERSION
 
-version 0.1.0
+version 0.1.1
 
 =head1 SYNOPSIS
 
