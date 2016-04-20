@@ -2,18 +2,21 @@
 
 =head1 NAME
 
-Array::Queue - A simple fifo queue
+Array::Queue::Priority - A custom sorted queue
 
 =head1 VERSION
 
-version 0.1.1
+version 0.1.2
 
 =head1 SYNOPSIS
 
-    my $queue = Array::Queue->new;
-    $ar->add({ id => 20 });
-    $ar->add({ id => 18 });
-    $ar->add({ id => 22 });
+    my $queue = Array::Queue::Priority->new(
+        sort_cb => sub {
+            $_[0]->{last_name} cmp $_[1]->{last_name}
+        });
+    $ar->add({ last_name => 'Rogers' });
+    $ar->add({ last_name => 'Stark' });
+    $ar->add({ last_name => 'Banner' });
 
     while ($node = $queue->first) {
         # do things with node
@@ -22,14 +25,21 @@ version 0.1.1
 
 =head1 DESCRIPTION
 
-Array::Queue is a fairly simple First-In / First-Out queue build with Moose.
+Array::Queue::Priority priority queue, sorted by whatever you desire.
 
-Any data structure can be added to the queue and retrieved in the order it was 
-added.  
+As values are inserted, they are sorted on the fly, ensuring the values
+come out in the order you desire.  You simply supply the sort_cb at the
+time of construction.
 
-Originally part of Array::Queue::Priority until I decided to break them into two
-classes, the one dependant on the other.
+If no sort_cb is supplied, it will try to sort by values passed.  You'll
+probably get warnings if that's just a string, and who knows what you will
+get if it's a hashref.  Straight numbers will work just find though.
 
+Call first() then remove() for a little "transactional safety" if there's
+an error processing the first item in the queue.
+
+
+Inherits from Array::Queue.
 
 =head1 METHODS
 
