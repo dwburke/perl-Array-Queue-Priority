@@ -93,7 +93,7 @@ Dan Burke C<< dburke at addictmud.org >>
 =head1 BUGS
 
 If you encounter any bugs, or have feature requests, please create an issue
-on github. https://github.com/dwburke/perl-Array-Queue/issues
+on github. https://github.com/dwburke/perl-Array-Queue-Priority/issues
 
 Pull requests also welcome.
 
